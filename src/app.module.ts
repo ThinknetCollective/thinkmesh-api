@@ -5,6 +5,7 @@ import { MeshNodesModule } from './mesh-nodes/mesh-nodes.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SolutionsModule } from './solutions/solutions.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { SolutionsModule } from './solutions/solutions.module';
     AuthModule,
     UsersModule,
     SolutionsModule,
+    TagsModule,
   ],
 })
 export class AppModule {}
