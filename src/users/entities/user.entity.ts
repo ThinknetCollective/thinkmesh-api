@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { MeshNode } from '../../mesh-nodes/entities/mesh-node.entity';
+import { Solution } from '../../solutions/entities/solution.entity';
 
 @Entity('users')
 export class User {
@@ -23,4 +24,7 @@ export class User {
 
   @OneToMany(() => MeshNode, meshNode => meshNode.createdBy)
   meshNodes: MeshNode[];
+
+  @OneToMany(() => Solution, solution => solution.submittedBy)
+  solutions: Solution[];
 }

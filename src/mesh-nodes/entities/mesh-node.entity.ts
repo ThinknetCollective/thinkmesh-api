@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
+import { Solution } from '../../solutions/entities/solution.entity';
 
 export enum MeshNodeStatus {
   ACTIVE = 'ACTIVE',
@@ -40,4 +41,7 @@ export class MeshNode {
   @ManyToOne(() => User, user => user.meshNodes, { nullable: false })
   @JoinColumn({ name: 'created_by' })
   createdBy: User;
+
+  @OneToMany(() => Solution, solution => solution.meshNode)
+  solutions: Solution[];
 }
