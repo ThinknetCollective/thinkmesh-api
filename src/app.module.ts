@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: ['.env.development', '.env'],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
