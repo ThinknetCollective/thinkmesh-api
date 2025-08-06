@@ -26,14 +26,32 @@ export class MeshNodesController {
   }
 
   @Get()
-  findAll(@Query('category') category?: string, @Query('userId') userId?: number) {
+  findAll(
+    @Query('category') category?: string, 
+    @Query('userId') userId?: number,
+    @Query('tags') tags?: string,
+    @Query('tagsMode') tagsMode?: 'all' | 'any'
+  ) {
     if (category) {
       return this.meshNodesService.findByCategory(category);
     }
     if (userId) {
       return this.meshNodesService.findByUser(userId);
     }
+    if (tags) {
+      const tagArray = tags.split(',').map(tag => tag.trim());
+      if (tagsMode === 'all') {
+        return this.meshNodesService.findByTags(tagArray);
+      } else {
+        return this.meshNodesService.findByTagsAny(tagArray);
+      }
+    }
     return this.meshNodesService.findAll();
+  }
+
+  @Post('suggest-tags')
+  suggestTags(@Body() body: { title: string; description: string }) {
+    return this.meshNodesService.suggestTagsForMeshNode(body.title, body.description);
   }
 
   @Get(':id')
