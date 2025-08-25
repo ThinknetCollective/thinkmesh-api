@@ -17,7 +17,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+<<<<<<< HEAD
     "test:e2e": "jest --config ./test/jest-e2e.json"
+=======
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "setup": "bash scripts/setup.sh",
+    "db:up": "docker-compose up -d",
+    "db:down": "docker-compose down"
+>>>>>>> upstream/main
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -27,6 +34,7 @@
     "@nestjs/mapped-types": "^2.1.0",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
+<<<<<<< HEAD
     "@nestjs/schedule": "^4.0.0",
     "@nestjs/typeorm": "^11.0.0",
     "@types/bcryptjs": "^2.4.6",
@@ -38,6 +46,19 @@
     "openai": "^4.28.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+=======
+    "@nestjs/typeorm": "^11.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/passport-jwt": "^4.0.1",
+    "@types/pg": "^8.15.5",
+    "bcryptjs": "^3.0.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "openai": "^5.11.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "pg": "^8.16.3",
+>>>>>>> upstream/main
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "sqlite3": "^5.1.7",
