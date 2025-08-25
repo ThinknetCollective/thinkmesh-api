@@ -1,6 +1,11 @@
-import { IsIn } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class VoteSolutionDto {
-  @IsIn(['upvote', 'downvote'])
-  voteType: 'upvote' | 'downvote';
+export class CreateSolutionDto {
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(10, { message: 'Solution content must be at least 10 characters long' })
+  content: string;
+
+  @IsNotEmpty()
+  meshNodeId: number;
 }

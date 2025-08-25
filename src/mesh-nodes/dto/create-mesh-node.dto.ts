@@ -1,23 +1,29 @@
 import { IsString, IsNotEmpty, IsArray, IsOptional, IsEnum } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { MeshNodeStatus } from '../entities/mesh-node.entity';
 
 export class CreateMeshNodeDto {
+  @ApiProperty({ example: 'GraphQL Basics', description: 'Title of the mesh node' })
   @IsString()
   @IsNotEmpty()
   title: string;
 
+  @ApiProperty({ example: 'Introduction to GraphQL fundamentals', description: 'Detailed description' })
   @IsString()
   @IsNotEmpty()
   description: string;
 
+  @ApiProperty({ example: 'Backend', description: 'Category this mesh node belongs to' })
   @IsString()
   @IsNotEmpty()
   category: string;
 
+  @ApiPropertyOptional({ type: [String], example: ['nestjs', 'graphql'], description: 'Tags associated with the node' })
   @IsArray()
   @IsOptional()
   tags?: string[];
 
+  @ApiPropertyOptional({ enum: MeshNodeStatus, description: 'Status of the mesh node' })
   @IsEnum(MeshNodeStatus)
   @IsOptional()
   status?: MeshNodeStatus;
