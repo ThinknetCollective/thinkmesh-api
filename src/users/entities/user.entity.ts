@@ -1,6 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { MeshNode } from '../../mesh-nodes/entities/mesh-node.entity';
 import { Solution } from '../../solutions/entities/solution.entity';
+import { Exclude } from 'class-transformer';
+import { Role } from './enums/role.enum';
 
 @Entity('users')
 export class User {
@@ -16,6 +18,10 @@ export class User {
   @Column()
   password: string;
 
+  @Exclude()
+@Column({ name: 'password_hash', type: 'varchar', length: 255 })
+passwordHash: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -27,4 +33,11 @@ export class User {
 
   @OneToMany(() => Solution, solution => solution.submittedBy)
   solutions: Solution[];
+
+  @Column({ type: 'text', nullable: true })
+bio?: string | null;
+
+
+@Column({ type: 'enum', enum: Role, default: Role.USER })
+role: Role;
 }

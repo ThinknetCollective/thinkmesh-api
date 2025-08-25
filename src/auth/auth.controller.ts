@@ -19,4 +19,10 @@ export class AuthController {
   async login(@Body() req: { username: string; password: string }) {
     return this.authService.login(req.username, req.password);
   }
+
+  @UseGuards(JwtAuthGuard)
+@Get('me')
+me(@ReqUser() user: { userId: string; email: string; role: string }) {
+return user; // from JwtStrategy.validate
+}
 }
