@@ -11,9 +11,9 @@ export type JwtPayload = { sub: string; email: string; role: string };
 export class JwtStrategy extends PassportStrategy(Strategy) {
 constructor(cfg: ConfigService) {
 super({
-jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-ignoreExpiration: false,
-secretOrKey: cfg.get<string>('JWT_SECRET'),
+	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+	ignoreExpiration: false,
+	secretOrKey: cfg.get<string>('JWT_SECRET') || 'changeme',
 });
 }
 

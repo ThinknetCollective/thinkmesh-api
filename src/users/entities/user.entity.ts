@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { MeshNode } from '../../mesh-nodes/entities/mesh-node.entity';
 import { Solution } from '../../solutions/entities/solution.entity';
 import { Exclude } from 'class-transformer';
-import { Role } from './enums/role.enum';
+import { Role } from '../enums/role.enum';
 
 @Entity('users')
 export class User {

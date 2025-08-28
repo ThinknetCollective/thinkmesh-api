@@ -1,11 +1,12 @@
-import { IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { IsNotEmpty, IsEnum } from 'class-validator';
 
-export class CreateSolutionDto {
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(10, { message: 'Solution content must be at least 10 characters long' })
-  content: string;
+export enum VoteType {
+  UPVOTE = 'UPVOTE',
+  DOWNVOTE = 'DOWNVOTE',
+}
 
+export class VoteSolutionDto {
   @IsNotEmpty()
-  meshNodeId: number;
+  @IsEnum(VoteType)
+  vote: VoteType;
 }

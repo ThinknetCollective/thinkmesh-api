@@ -44,4 +44,10 @@ export class MeshNode {
 
   @OneToMany(() => Solution, solution => solution.meshNode)
   solutions: Solution[];
+  
+  @Column({ default: false })
+  systemGenerated: boolean;
+
+  @Column({ type: 'text', nullable: true })
+  summary?: string;
 }
