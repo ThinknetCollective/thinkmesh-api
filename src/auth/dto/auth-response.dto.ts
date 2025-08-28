@@ -1,6 +1,6 @@
 import { Expose, plainToInstance } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from '../../users/user.entity';
+import { User } from '../../users/entities/user.entity';
 
 export class UserDto {
   @ApiProperty({ example: '1a2b3c', description: 'Unique user ID' })

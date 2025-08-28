@@ -9,7 +9,7 @@ import {
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { ReqUser } from './req-user.decorator'; // assuming custom decorator
+import { ReqUser } from './req-user.decorator';
 import { AuthResponseDto } from './dto/user.dto';
 import {
   ApiTags,
@@ -56,7 +56,7 @@ export class AuthController {
   @ApiResponse({
     status: 200,
     description: 'Authenticated user details',
-    type: UserDto,
+  type: AuthResponseDto,
   })
   me(@ReqUser() user: { userId: string; email: string; role: string }) {
     return user; // comes from JwtStrategy.validate

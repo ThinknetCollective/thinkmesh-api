@@ -54,7 +54,7 @@ export class SummarizationController {
 
   @Post('batch')
   async createBatchSummaries(@Body() batchData: { nodes: CreateSummaryDto[] }) {
-    const results = [];
+  const results: { nodeId: string; success: boolean; summary?: string; error?: string }[] = [];
     
     for (const nodeData of batchData.nodes) {
       try {

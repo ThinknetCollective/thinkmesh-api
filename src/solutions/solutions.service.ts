@@ -6,7 +6,7 @@ import { MeshNode } from '../mesh-nodes/entities/mesh-node.entity';
 import { User } from '../users/entities/user.entity';
 import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
-import { VoteSolutionDto } from './dto/vote-solution.dto';
+import { VoteSolutionDto, VoteType } from './dto/vote-solution.dto';
 
 @Injectable()
 export class SolutionsService {
@@ -98,15 +98,12 @@ export class SolutionsService {
 
   async vote(id: number, voteSolutionDto: VoteSolutionDto): Promise<Solution> {
     const solution = await this.findOne(id);
-
-    if (voteSolutionDto.voteType === 'upvote') {
-      solution.upvotes += 1;
+    if (voteSolutionDto.vote === VoteType.UPVOTE) {
+      solution.upvotes = (solution.upvotes || 0) + 1;
     } else {
-      solution.downvotes += 1;
+      solution.downvotes = (solution.downvotes || 0) + 1;
     }
-
-    solution.totalVotes = solution.upvotes - solution.downvotes;
-
+    solution.totalVotes = (solution.upvotes || 0) - (solution.downvotes || 0);
     return this.solutionsRepository.save(solution);
   }
 

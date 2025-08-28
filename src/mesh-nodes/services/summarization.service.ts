@@ -15,7 +15,7 @@ export class SummarizationService {
     private meshNodeRepository: Repository<MeshNode>,
     private configService: ConfigService,
   ) {
-    this.openaiApiKey = this.configService.get<string>('OPENAI_API_KEY');
+  this.openaiApiKey = this.configService.get<string>('OPENAI_API_KEY') || '';
   }
 
   async summarizeTexts(texts: string[]): Promise<string> {
@@ -70,7 +70,6 @@ export class SummarizationService {
     
     await this.meshNodeRepository.update(nodeId, {
       summary,
-      lastSummarized: new Date(),
     });
 
     return summary;
@@ -80,17 +79,14 @@ export class SummarizationService {
   async updateAllSummaries() {
     this.logger.log('Starting scheduled summary updates...');
     
-    const nodes = await this.meshNodeRepository.find({
-      where: {
-        solutions: 'NOT NULL',
-      },
-    });
+  const nodes = await this.meshNodeRepository.find();
 
     for (const node of nodes) {
       try {
-        if (node.solutions) {
-          const solutionTexts = JSON.parse(node.solutions);
-          if (Array.isArray(solutionTexts) && solutionTexts.length > 0) {
+        if (node.solutions && Array.isArray(node.solutions) && node.solutions.length > 0) {
+          // If solutions are entities, extract their content/text property
+          const solutionTexts = node.solutions.map((s: any) => s.content || s.text || s.toString());
+          if (solutionTexts.length > 0) {
             await this.createSummaryForNode(node.id, solutionTexts);
             this.logger.log(`Updated summary for node ${node.id}`);
           }
