@@ -1,4 +1,9 @@
 import { Module } from '@nestjs/common';
+<<<<<<< HEAD
+
+@Module({})
+export class AuthModule {}
+=======
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
@@ -24,3 +29,4 @@ controllers: [AuthController],
 exports: [],
 })
 export class AuthModule {}
+>>>>>>> upstream/main
