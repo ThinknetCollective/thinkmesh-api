@@ -29,7 +29,9 @@ async function bootstrap() {
   // Swagger API documentation setup
   const config = new DocumentBuilder()
     .setTitle('ThinkMesh API')
-    .setDescription('API documentation for ThinkMesh discussion platform with AI summarization')
+    .setDescription(
+      'API documentation for ThinkMesh discussion platform with AI summarization',
+    )
     .setVersion('1.0')
     .addBearerAuth() // JWT authentication
     .build();
@@ -41,4 +43,4 @@ async function bootstrap() {
   console.log('Application is running on: http://localhost:3000');
   console.log('API Documentation available at: http://localhost:3000/api/docs');
 }
-bootstrap();
+void bootstrap();

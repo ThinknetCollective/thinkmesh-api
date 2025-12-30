@@ -40,9 +40,13 @@ describe('SummarizationService', () => {
   });
 
   it('should create fallback summary when texts provided', async () => {
-    const texts = ['This is a solution.', 'Another great solution here.', 'Final solution approach.'];
+    const texts = [
+      'This is a solution.',
+      'Another great solution here.',
+      'Final solution approach.',
+    ];
     const summary = await service['fallbackSummarization'](texts);
-    
+
     expect(summary).toBeDefined();
     expect(summary.length).toBeGreaterThan(0);
   });

@@ -1,11 +1,11 @@
-import { 
-  Entity, 
-  Column, 
-  PrimaryGeneratedColumn, 
-  CreateDateColumn, 
-  UpdateDateColumn, 
-  ManyToOne, 
-  JoinColumn 
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { MeshNode } from '../../mesh-nodes/entities/mesh-node.entity';
@@ -33,11 +33,13 @@ export class Solution {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, user => user.solutions, { nullable: false })
+  @ManyToOne(() => User, (user) => user.solutions, { nullable: false })
   @JoinColumn({ name: 'submitted_by' })
   submittedBy: User;
 
-  @ManyToOne(() => MeshNode, meshNode => meshNode.solutions, { nullable: false })
+  @ManyToOne(() => MeshNode, (meshNode) => meshNode.solutions, {
+    nullable: false,
+  })
   @JoinColumn({ name: 'mesh_node_id' })
   meshNode: MeshNode;
 }

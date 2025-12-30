@@ -1,4 +1,12 @@
-import { Controller, Post, Get, Body, Param, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Param,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { SummarizationService } from '../services/summarization.service';
 import { CreateSummaryDto } from '../dto/create-summary.dto';
 
@@ -30,8 +38,10 @@ export class SummarizationController {
   @Get(':nodeId')
   async getSummary(@Param('nodeId') nodeId: string) {
     try {
-      const summary = await this.summarizationService.getSummary(parseInt(nodeId));
-      
+      const summary = await this.summarizationService.getSummary(
+        parseInt(nodeId),
+      );
+
       if (!summary) {
         throw new HttpException('Summary not found', HttpStatus.NOT_FOUND);
       }
@@ -54,8 +64,13 @@ export class SummarizationController {
 
   @Post('batch')
   async createBatchSummaries(@Body() batchData: { nodes: CreateSummaryDto[] }) {
-  const results: { nodeId: string; success: boolean; summary?: string; error?: string }[] = [];
-    
+    const results: {
+      nodeId: string;
+      success: boolean;
+      summary?: string;
+      error?: string;
+    }[] = [];
+
     for (const nodeData of batchData.nodes) {
       try {
         const summary = await this.summarizationService.createSummaryForNode(
@@ -64,7 +79,11 @@ export class SummarizationController {
         );
         results.push({ nodeId: nodeData.nodeId, success: true, summary });
       } catch (error) {
-        results.push({ nodeId: nodeData.nodeId, success: false, error: error.message });
+        results.push({
+          nodeId: nodeData.nodeId,
+          success: false,
+          error: error.message,
+        });
       }
     }
 

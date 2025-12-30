@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SolutionsModule } from './solutions/solutions.module';
 import { TagsModule } from './tags/tags.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -19,10 +20,12 @@ import { TagsModule } from './tags/tags.module';
     }),
 
     // ✅ Throttler configuration
-    ThrottlerModule.forRoot({
-      ttl: 60, // seconds
-      limit: 10, // max requests per ttl per IP
-    }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000, // milliseconds
+        limit: 10,
+      },
+    ]),
 
     ScheduleModule.forRoot(),
 
@@ -47,6 +50,7 @@ import { TagsModule } from './tags/tags.module';
     UsersModule,
     SolutionsModule,
     TagsModule,
+    HealthModule,
   ],
 
   // ✅ Apply throttling globally

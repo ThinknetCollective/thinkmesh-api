@@ -10,12 +10,21 @@ import { MeshNodeEventIngestionController } from './controllers/meshnode-event-i
 import { MeshNodeEventIngestionService } from './services/meshnode-event-ingestion.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([MeshNode]),
-    TagsModule
+  imports: [TypeOrmModule.forFeature([MeshNode]), TagsModule],
+  controllers: [
+    MeshNodesController,
+    SummarizationController,
+    MeshNodeEventIngestionController,
   ],
-  controllers: [MeshNodesController, SummarizationController, MeshNodeEventIngestionController],
-  providers: [MeshNodesService, SummarizationService, MeshNodeEventIngestionService],
-  exports: [MeshNodesService, SummarizationService, MeshNodeEventIngestionService],
+  providers: [
+    MeshNodesService,
+    SummarizationService,
+    MeshNodeEventIngestionService,
+  ],
+  exports: [
+    MeshNodesService,
+    SummarizationService,
+    MeshNodeEventIngestionService,
+  ],
 })
 export class MeshNodesModule {}

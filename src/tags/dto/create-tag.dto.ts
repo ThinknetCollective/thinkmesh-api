@@ -7,17 +7,26 @@ export class CreateTagDto {
   @IsString()
   name: string;
 
-  @ApiPropertyOptional({ example: 'NestJS framework related tag', description: 'Tag description' })
+  @ApiPropertyOptional({
+    example: 'NestJS framework related tag',
+    description: 'Tag description',
+  })
   @IsOptional()
   @IsString()
   description?: string;
 
-  @ApiPropertyOptional({ example: 'backend', description: 'Category for grouping tags' })
+  @ApiPropertyOptional({
+    example: 'backend',
+    description: 'Category for grouping tags',
+  })
   @IsOptional()
   @IsString()
   category?: string;
 
-  @ApiPropertyOptional({ example: ['nodejs', 'typescript'], description: 'Alternative names' })
+  @ApiPropertyOptional({
+    example: ['nodejs', 'typescript'],
+    description: 'Alternative names',
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

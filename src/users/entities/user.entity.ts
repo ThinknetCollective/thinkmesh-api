@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
 import { MeshNode } from '../../mesh-nodes/entities/mesh-node.entity';
 import { Solution } from '../../solutions/entities/solution.entity';
 import { Exclude } from 'class-transformer';
@@ -25,16 +32,15 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => MeshNode, meshNode => meshNode.createdBy)
+  @OneToMany(() => MeshNode, (meshNode) => meshNode.createdBy)
   meshNodes: MeshNode[];
 
-  @OneToMany(() => Solution, solution => solution.submittedBy)
+  @OneToMany(() => Solution, (solution) => solution.submittedBy)
   solutions: Solution[];
 
   @Column({ type: 'text', nullable: true })
-bio?: string | null;
+  bio?: string | null;
 
-
-@Column({ type: 'enum', enum: Role, default: Role.USER })
-role: Role;
+  @Column({ type: 'enum', enum: Role, default: Role.USER })
+  role: Role;
 }

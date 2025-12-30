@@ -14,7 +14,9 @@ export class OpenAiService {
         apiKey: apiKey,
       });
     } else {
-      this.logger.warn('OpenAI API key not found. Tag suggestions will use fallback method.');
+      this.logger.warn(
+        'OpenAI API key not found. Tag suggestions will use fallback method.',
+      );
     }
   }
 
@@ -50,8 +52,8 @@ export class OpenAiService {
       if (response) {
         return response
           .split(',')
-          .map(tag => tag.trim().toLowerCase())
-          .filter(tag => tag.length > 0 && tag.length <= 30)
+          .map((tag) => tag.trim().toLowerCase())
+          .filter((tag) => tag.length > 0 && tag.length <= 30)
           .slice(0, 8); // Limit to 8 tags
       }
     } catch (error) {
@@ -67,50 +69,74 @@ export class OpenAiService {
 
     // Technology-related keywords
     const techKeywords = {
-      'web': ['web', 'website', 'browser', 'frontend', 'backend'],
-      'mobile': ['mobile', 'app', 'android', 'ios', 'smartphone'],
-      'ai': ['ai', 'artificial intelligence', 'machine learning', 'neural', 'deep learning'],
-      'data': ['data', 'database', 'analytics', 'big data', 'statistics'],
-      'cloud': ['cloud', 'aws', 'azure', 'docker', 'kubernetes'],
-      'security': ['security', 'encryption', 'authentication', 'cybersecurity'],
-      'api': ['api', 'rest', 'graphql', 'microservices'],
-      'javascript': ['javascript', 'js', 'node', 'react', 'vue'],
-      'python': ['python', 'django', 'flask', 'pandas'],
-      'performance': ['performance', 'optimization', 'speed', 'efficiency'],
+      web: ['web', 'website', 'browser', 'frontend', 'backend'],
+      mobile: ['mobile', 'app', 'android', 'ios', 'smartphone'],
+      ai: [
+        'ai',
+        'artificial intelligence',
+        'machine learning',
+        'neural',
+        'deep learning',
+      ],
+      data: ['data', 'database', 'analytics', 'big data', 'statistics'],
+      cloud: ['cloud', 'aws', 'azure', 'docker', 'kubernetes'],
+      security: ['security', 'encryption', 'authentication', 'cybersecurity'],
+      api: ['api', 'rest', 'graphql', 'microservices'],
+      javascript: ['javascript', 'js', 'node', 'react', 'vue'],
+      python: ['python', 'django', 'flask', 'pandas'],
+      performance: ['performance', 'optimization', 'speed', 'efficiency'],
     };
 
     // Problem categories
     const categoryKeywords = {
-      'environment': ['climate', 'environment', 'sustainability', 'green', 'carbon'],
-      'healthcare': ['health', 'medical', 'wellness', 'disease', 'treatment'],
-      'education': ['education', 'learning', 'teaching', 'school', 'university'],
-      'finance': ['finance', 'money', 'payment', 'banking', 'investment'],
-      'social': ['social', 'community', 'society', 'people', 'collaboration'],
-      'governance': ['government', 'policy', 'law', 'regulation', 'public'],
+      environment: [
+        'climate',
+        'environment',
+        'sustainability',
+        'green',
+        'carbon',
+      ],
+      healthcare: ['health', 'medical', 'wellness', 'disease', 'treatment'],
+      education: ['education', 'learning', 'teaching', 'school', 'university'],
+      finance: ['finance', 'money', 'payment', 'banking', 'investment'],
+      social: ['social', 'community', 'society', 'people', 'collaboration'],
+      governance: ['government', 'policy', 'law', 'regulation', 'public'],
     };
 
     // Check for technology tags
     for (const [tag, keywords] of Object.entries(techKeywords)) {
-      if (keywords.some(keyword => text.includes(keyword))) {
+      if (keywords.some((keyword) => text.includes(keyword))) {
         fallbackTags.push(tag);
       }
     }
 
     // Check for category tags
     for (const [tag, keywords] of Object.entries(categoryKeywords)) {
-      if (keywords.some(keyword => text.includes(keyword))) {
+      if (keywords.some((keyword) => text.includes(keyword))) {
         fallbackTags.push(tag);
       }
     }
 
     // Add some general tags based on common words
-    if (text.includes('problem') || text.includes('issue') || text.includes('challenge')) {
+    if (
+      text.includes('problem') ||
+      text.includes('issue') ||
+      text.includes('challenge')
+    ) {
       fallbackTags.push('problem-solving');
     }
-    if (text.includes('solution') || text.includes('fix') || text.includes('resolve')) {
+    if (
+      text.includes('solution') ||
+      text.includes('fix') ||
+      text.includes('resolve')
+    ) {
       fallbackTags.push('solution');
     }
-    if (text.includes('new') || text.includes('innovation') || text.includes('creative')) {
+    if (
+      text.includes('new') ||
+      text.includes('innovation') ||
+      text.includes('creative')
+    ) {
       fallbackTags.push('innovation');
     }
 

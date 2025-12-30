@@ -9,13 +9,25 @@ import {
   UseGuards,
   Request,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { MeshNodesService } from './mesh-nodes.service';
 import { CreateMeshNodeDto } from './dto/create-mesh-node.dto';
 import { UpdateMeshNodeDto } from './dto/update-mesh-node.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
+import { Request as ExpressRequest } from 'express';
+import { User } from '../users/entities/user.entity';
 
+// Define user type
+interface RequestWithUser extends ExpressRequest {
+  user: User;
+}
 @ApiTags('Mesh Nodes')
 @ApiBearerAuth() // 🔐 shows lock icon in Swagger
 @Controller('api/v1/mesh-nodes')
@@ -26,7 +38,10 @@ export class MeshNodesController {
   @Post()
   @ApiOperation({ summary: 'Create a new mesh node' })
   @ApiResponse({ status: 201, description: 'Mesh node created successfully' })
-  create(@Body() createMeshNodeDto: CreateMeshNodeDto, @Request() req) {
+  create(
+    @Body() createMeshNodeDto: CreateMeshNodeDto,
+    @Request() req: RequestWithUser,
+  ) {
     return this.meshNodesService.create(createMeshNodeDto, req.user);
   }
 
@@ -46,7 +61,7 @@ export class MeshNodesController {
       return this.meshNodesService.findByUser(userId);
     }
     if (tags) {
-      const tagArray = tags.split(',').map(tag => tag.trim());
+      const tagArray = tags.split(',').map((tag) => tag.trim());
       return tagsMode === 'all'
         ? this.meshNodesService.findByTags(tagArray)
         : this.meshNodesService.findByTagsAny(tagArray);
@@ -58,14 +73,21 @@ export class MeshNodesController {
   @ApiOperation({ summary: 'Suggest tags based on title and description' })
   @ApiResponse({ status: 200, description: 'Suggested tags returned' })
   suggestTags(@Body() body: { title: string; description: string }) {
-    return this.meshNodesService.suggestTagsForMeshNode(body.title, body.description);
+    return this.meshNodesService.suggestTagsForMeshNode(
+      body.title,
+      body.description,
+    );
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Retrieve a mesh node by ID' })
   @ApiResponse({ status: 200, description: 'Mesh node details returned' })
-  findOne(@Param('id') id: string) {
-    return this.meshNodesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return this.meshNodesService.findOne(+id);
+    } catch {
+      throw new NotFoundException(`Resource with ID ${id} not found`);
+    }
   }
 
   @Patch(':id')
@@ -74,7 +96,7 @@ export class MeshNodesController {
   update(
     @Param('id') id: string,
     @Body() updateMeshNodeDto: UpdateMeshNodeDto,
-    @Request() req,
+    @Request() req: RequestWithUser,
   ) {
     return this.meshNodesService.update(+id, updateMeshNodeDto, req.user);
   }
@@ -82,7 +104,7 @@ export class MeshNodesController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a mesh node by ID' })
   @ApiResponse({ status: 200, description: 'Mesh node removed successfully' })
-  remove(@Param('id') id: string, @Request() req) {
+  remove(@Param('id') id: string, @Request() req: RequestWithUser) {
     return this.meshNodesService.remove(+id, req.user);
   }
 }

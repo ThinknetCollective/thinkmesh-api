@@ -1,11 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { Solution } from '../../solutions/entities/solution.entity';
 
 export enum MeshNodeStatus {
   ACTIVE = 'ACTIVE',
   INACTIVE = 'INACTIVE',
-  ARCHIVED = 'ARCHIVED'
+  ARCHIVED = 'ARCHIVED',
 }
 
 @Entity('mesh_nodes')
@@ -28,7 +37,7 @@ export class MeshNode {
   @Column({
     type: 'enum',
     enum: MeshNodeStatus,
-    default: MeshNodeStatus.ACTIVE
+    default: MeshNodeStatus.ACTIVE,
   })
   status: MeshNodeStatus;
 
@@ -38,13 +47,13 @@ export class MeshNode {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => User, user => user.meshNodes, { nullable: false })
+  @ManyToOne(() => User, (user) => user.meshNodes, { nullable: false })
   @JoinColumn({ name: 'created_by' })
   createdBy: User;
 
-  @OneToMany(() => Solution, solution => solution.meshNode)
+  @OneToMany(() => Solution, (solution) => solution.meshNode)
   solutions: Solution[];
-  
+
   @Column({ default: false })
   systemGenerated: boolean;
 

@@ -56,7 +56,7 @@ export class AuthController {
   @ApiResponse({
     status: 200,
     description: 'Authenticated user details',
-  type: AuthResponseDto,
+    type: AuthResponseDto,
   })
   me(@ReqUser() user: { userId: string; email: string; role: string }) {
     return user; // comes from JwtStrategy.validate

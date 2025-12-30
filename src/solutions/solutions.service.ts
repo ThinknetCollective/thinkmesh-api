@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Solution } from './entities/solution.entity';
@@ -19,21 +23,26 @@ export class SolutionsService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async create(createSolutionDto: CreateSolutionDto, userId: number): Promise<Solution> {
+  async create(
+    createSolutionDto: CreateSolutionDto,
+    userId: number,
+  ): Promise<Solution> {
     // Verify mesh node exists
     const meshNode = await this.meshNodesRepository.findOne({
       where: { id: createSolutionDto.meshNodeId },
     });
-    
+
     if (!meshNode) {
-      throw new NotFoundException(`MeshNode with ID ${createSolutionDto.meshNodeId} not found`);
+      throw new NotFoundException(
+        `MeshNode with ID ${createSolutionDto.meshNodeId} not found`,
+      );
     }
 
     // Verify user exists
     const user = await this.usersRepository.findOne({
       where: { id: userId },
     });
-    
+
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
@@ -72,7 +81,7 @@ export class SolutionsService {
     const meshNode = await this.meshNodesRepository.findOne({
       where: { id: meshNodeId },
     });
-    
+
     if (!meshNode) {
       throw new NotFoundException(`MeshNode with ID ${meshNodeId} not found`);
     }
@@ -84,7 +93,11 @@ export class SolutionsService {
     });
   }
 
-  async update(id: number, updateSolutionDto: UpdateSolutionDto, userId: number): Promise<Solution> {
+  async update(
+    id: number,
+    updateSolutionDto: UpdateSolutionDto,
+    userId: number,
+  ): Promise<Solution> {
     const solution = await this.findOne(id);
 
     // Check if user is the author

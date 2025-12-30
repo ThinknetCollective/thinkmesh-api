@@ -16,7 +16,11 @@ export class MeshNodeEventIngestionService {
 
   constructor(private readonly meshNodesService: MeshNodesService) {}
 
-  async ingestEvents(events: IngestedEvent[], scoreThreshold = 0.7, systemUser: any) {
+  async ingestEvents(
+    events: IngestedEvent[],
+    scoreThreshold = 0.7,
+    systemUser: any,
+  ) {
     const createdNodes: import('../entities/mesh-node.entity').MeshNode[] = [];
     for (const event of events) {
       if (event.score >= scoreThreshold) {

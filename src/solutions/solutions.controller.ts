@@ -15,7 +15,13 @@ import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
 import { VoteSolutionDto } from './dto/vote-solution.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+} from '@nestjs/swagger';
 
 @ApiTags('api/v1/solutions')
 @ApiBearerAuth() // adds JWT auth field in Swagger
@@ -41,7 +47,10 @@ export class SolutionsController {
   @Get('mesh-node/:meshNodeId')
   @ApiOperation({ summary: 'Find solutions by mesh node' })
   @ApiParam({ name: 'meshNodeId', type: Number })
-  @ApiResponse({ status: 200, description: 'Return solutions for given mesh node.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return solutions for given mesh node.',
+  })
   findByMeshNode(@Param('meshNodeId', ParseIntPipe) meshNodeId: number) {
     return this.solutionsService.findByMeshNode(meshNodeId);
   }

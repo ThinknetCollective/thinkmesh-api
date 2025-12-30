@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like, MoreThan } from 'typeorm';
 import { Tag } from './entities/tag.entity';
@@ -113,17 +117,19 @@ export class TagsService {
 
     // Get existing tags that match suggestions to prioritize them
     const existingTags = await this.tagsRepository.find({
-      where: suggestions.map(name => ({ name })),
+      where: suggestions.map((name) => ({ name })),
       order: { usageCount: 'DESC' },
     });
 
     // Merge AI suggestions with existing popular tags
-    const existingTagNames = existingTags.map(tag => tag.name);
-    const newSuggestions = suggestions.filter(tag => !existingTagNames.includes(tag));
-    
+    const existingTagNames = existingTags.map((tag) => tag.name);
+    const newSuggestions = suggestions.filter(
+      (tag) => !existingTagNames.includes(tag),
+    );
+
     const finalSuggestions = [
       ...existingTagNames, // Prioritize existing tags
-      ...newSuggestions,   // Add new AI suggestions
+      ...newSuggestions, // Add new AI suggestions
     ].slice(0, 8);
 
     return {
@@ -134,16 +140,18 @@ export class TagsService {
 
   async update(id: number, updateTagDto: UpdateTagDto): Promise<Tag> {
     const tag = await this.findOne(id);
-    
+
     if (updateTagDto.name && updateTagDto.name !== tag.name) {
       const existingTag = await this.tagsRepository.findOne({
         where: { name: updateTagDto.name.toLowerCase() },
       });
-      
+
       if (existingTag && existingTag.id !== id) {
-        throw new ConflictException(`Tag '${updateTagDto.name}' already exists`);
+        throw new ConflictException(
+          `Tag '${updateTagDto.name}' already exists`,
+        );
       }
-      
+
       updateTagDto.name = updateTagDto.name.toLowerCase();
     }
 
@@ -162,7 +170,7 @@ export class TagsService {
     topCategories: { category: string; count: number }[];
   }> {
     const totalTags = await this.tagsRepository.count();
-    
+
     const usageResult = await this.tagsRepository
       .createQueryBuilder('tag')
       .select('SUM(tag.usageCount)', 'totalUsage')
@@ -182,7 +190,7 @@ export class TagsService {
     return {
       totalTags,
       totalUsage: parseInt(usageResult?.totalUsage || '0'),
-      topCategories: categoryStats.map(stat => ({
+      topCategories: categoryStats.map((stat) => ({
         category: stat.category,
         count: parseInt(stat.count),
       })),

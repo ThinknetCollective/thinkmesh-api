@@ -41,7 +41,12 @@ export class TagsController {
 
   @Get()
   @ApiOperation({ summary: 'Get all tags' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Limit number of results' })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Limit number of results',
+  })
   @ApiResponse({ status: 200, description: 'List of tags.' })
   findAll(@Query('limit') limit?: string) {
     const limitNum = limit ? parseInt(limit, 10) : undefined;
@@ -50,7 +55,12 @@ export class TagsController {
 
   @Get('popular')
   @ApiOperation({ summary: 'Get popular tags' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Limit number of results (default 20)' })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Limit number of results (default 20)',
+  })
   @ApiResponse({ status: 200, description: 'List of popular tags.' })
   findPopular(@Query('limit') limit?: string) {
     const limitNum = limit ? parseInt(limit, 10) : 20;
@@ -59,8 +69,18 @@ export class TagsController {
 
   @Get('search')
   @ApiOperation({ summary: 'Search tags by keyword' })
-  @ApiQuery({ name: 'q', required: true, type: String, description: 'Search keyword' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Limit number of results (default 10)' })
+  @ApiQuery({
+    name: 'q',
+    required: true,
+    type: String,
+    description: 'Search keyword',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Limit number of results (default 10)',
+  })
   @ApiResponse({ status: 200, description: 'List of matching tags.' })
   search(@Query('q') query: string, @Query('limit') limit?: string) {
     const limitNum = limit ? parseInt(limit, 10) : 10;
@@ -84,7 +104,10 @@ export class TagsController {
 
   @Post('suggest')
   @ApiOperation({ summary: 'Suggest tags based on content' })
-  @ApiResponse({ status: 201, description: 'Tag suggestions returned successfully.' })
+  @ApiResponse({
+    status: 201,
+    description: 'Tag suggestions returned successfully.',
+  })
   suggestTags(@Body() suggestTagsDto: SuggestTagsDto) {
     return this.tagsService.suggestTags(suggestTagsDto);
   }
@@ -104,7 +127,10 @@ export class TagsController {
   @ApiOperation({ summary: 'Update a tag' })
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, description: 'Tag updated successfully.' })
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateTagDto: UpdateTagDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateTagDto: UpdateTagDto,
+  ) {
     return this.tagsService.update(id, updateTagDto);
   }
 
