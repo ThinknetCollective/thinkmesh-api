@@ -1,198 +1,403 @@
-<<<<<<< HEAD
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
-```
-
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-=======
 # ThinkMesh 🧠
 
-**The collaborative backend engine for collective problem-solving.**  
-ThinkMesh lets developers, researchers, and problem-solvers come together to tackle real-world technical and societal issues — one MeshNode at a time.
+**Solve real problems. Earn crypto. Make impact.**
+
+ThinkMesh is a decentralized platform where communities collaborate to solve real-world problems—from local infrastructure to global challenges—and get rewarded for their contributions.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
+[![Base Network](https://img.shields.io/badge/Base-Network-0052FF)](https://base.org/)
 
 ---
 
-## 🚀 What is ThinkMesh?
+## 🎯 What is ThinkMesh?
 
-ThinkMesh is a backend-powered open-source platform that:
-- Ingests and surfaces trending problems (tech, governance, society)
-- Lets users pitch and debate solutions
-- Uses AI to summarize discussions
-- Exposes APIs for frontend, bots, plugins, or integrations
+ThinkMesh connects **problem solvers** with **real problems** in their communities and around the world.
 
-## 🛠 Tech Stack
-- **Backend:** NestJS (Modular, Scalable)
-- **Data:** PostgreSQL / MongoDB (selectable)
-- **ML/NLP:** Transformers, OpenAI API, T5 (optional, pluggable)
-- **Queueing:** BullMQ / Redis
-- **Dev Tools:** Swagger, ESLint, Prettier, Husky
+**How it works:**
+1. 🔍 **Problems are posted** (from trending topics or community submissions)
+2. 💡 **You submit solutions** (judged by quality, not popularity)
+3. 🏆 **Winners earn tokens** (crypto rewards on Base blockchain)
+4. 🛠️ **Solutions get implemented** (open-source bounties, hackathons)
+5. 📊 **Impact is tracked** (on-chain proof of real-world change)
+
+Think: **"Gitcoin meets Stack Overflow for real-world problems"**
 
 ---
 
-## 🧩 Core Concepts
+## ✨ Why ThinkMesh?
 
-- **MeshNode:** A problem or issue being discussed
-- **SolutionDrafts:** Proposals contributed by users
-- **Insight Summaries:** AI or user-curated takeaways
-- **Reputation Engine:** Rewards thoughtful contributions
+### For Problem Solvers
+- 💰 **Earn crypto** for quality solutions
+- 🎯 **Build your portfolio** with verified impact
+- 🏆 **Gain recognition** through badges and leaderboards
+- 🌍 **Make real impact** (not just discussion)
+- 💼 **Get noticed** by NGOs, companies, recruiters
 
----
+### For Communities
+- 🏘️ **Solve local problems** (traffic, flooding, infrastructure)
+- 🤝 **Crowdsource solutions** from global talent
+- 📈 **Track impact** transparently on blockchain
+- 💸 **Fund implementations** via crypto crowdfunding
+- 🔄 **Keep ownership** (all code is open source)
 
-## 🧑‍💻 Getting Started for Contributors
-
-### Prerequisites
-- **Node.js** (v18 or higher)
-- **Docker** (for database)
-- **Git**
-
-### Quick Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/ThinknetCollective/thinkmesh-api.git
-   cd thinkmesh-api
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment**
-   ```bash
-   cp .env.example .env.development
-   # Edit .env.development with your preferred settings (optional)
-   ```
-
-4. **Start the database**
-   ```bash
-   docker-compose up -d
-   ```
-
-5. **Start the development server**
-   ```bash
-   npm run start:dev
-   ```
-
-6. **Verify setup**
-   - API should be running at `http://localhost:3000`
-   - Database should be accessible at `localhost:5432`
-
-### What Each Step Does
-
-- **Docker Compose**: Starts a PostgreSQL database with pre-configured credentials
-- **Environment Files**: Configures database connection, JWT secrets, and app settings
-- **Development Server**: Runs with hot-reload and automatic TypeORM synchronization
-
-### Troubleshooting
-
-- **Database connection issues**: Ensure Docker is running and port 5432 is available
-- **Port conflicts**: Change `PORT=3000` in `.env.development` if needed
-- **TypeORM errors**: Database tables are auto-created via `synchronize: true` in development
-
-### We Welcome Contributors
-
-- 🧱 NestJS developers
-- 🤖 ML/NLP engineers  
-- ✍️ Prompt writers
-- 📥 Scraper/integration builders
-- 🧪 Testers and idea contributors
+### For Organizations
+- 🎯 **Find solutions** to your toughest problems
+- 👥 **Access global talent** without hiring overhead
+- 📊 **Transparent reporting** (on-chain impact proof)
+- 💡 **Discover innovators** before your competitors
+- 🌱 **Support social good** while building your brand
 
 ---
 
-## 📄 License
-MIT — Open to all, for the good of all.
->>>>>>> upstream/main
+## 🚀 Key Features
+
+### 🌍 **Global & Local Problem Pools**
+- **Global**: Climate change, AI ethics, global health
+- **Regional**: Water access in Africa, education in Asia
+- **Local**: Traffic in Lagos, flooding in your neighborhood
+
+Start local (free forever), unlock global as you contribute.
+
+### 🏆 **Quality-Based Ranking**
+Solutions judged by:
+- **Logic & feasibility** (not just votes)
+- **Ethical impact** (benefit vs harm)
+- **Innovation** (new approaches valued)
+- **Actionability** (can it actually be implemented?)
+
+**AI + expert reviewers** ensure quality wins, not popularity.
+
+### ⛓️ **Blockchain Rewards (Base Network)**
+- Earn **THINK tokens** for winning solutions
+- Get **NFT badges** as proof of impact
+- Build **on-chain reputation** (portable everywhere)
+- **Low fees** on Base (Coinbase L2)
+
+### 🛠️ **Open Source Implementation**
+Winning solutions branch into:
+- **Tech tracks** (GitHub repos, bounties)
+- **Community tracks** (volunteer coordination)
+- **Relief tracks** (humanitarian operations)
+- **Funding tracks** (grants, crowdfunding)
+
+Everyone can contribute, everyone gets rewarded.
+
+### 🎮 **Gamification**
+- **Verified badges** (top contributors)
+- **Leaderboards** (weekly, monthly, all-time)
+- **Streaks & achievements**
+- **Levels & reputation**
+
+---
+
+## 🌍 Start Local: Nigeria Launch
+
+We're starting with **Nigeria** to prove the model:
+
+### Why Nigeria?
+- 🇳🇬 **200M+ people** with real problems
+- 💻 **Growing tech scene** (Andela, Flutterwave, Paystack)
+- 🌆 **Urban challenges** (traffic, power, flooding)
+- 🎓 **Young, educated population**
+- 💰 **Crypto-friendly** (high adoption)
+
+### Local Pools (Always Free)
+- **Lagos** → Traffic solutions, flood prevention
+- **Abuja** → Governance, housing
+- **Kano** → Agriculture, trade
+- **Your city** → Submit your own problems
+
+**Solve problems in your backyard. Build portfolio. Earn money. Get hired.**
+
+---
+
+## 💰 How You Earn
+
+### Win Challenges
+```
+Weekly Problem: "Reduce Lagos Traffic by 20%"
+├─ 1st place: 500 THINK tokens (~$100)
+├─ 2nd place: 300 THINK tokens (~$60)
+├─ 3rd place: 200 THINK tokens (~$40)
+└─ All participants: Contribution tokens
+```
+
+### Implement Solutions
+```
+Action Plan: Build traffic prediction app
+├─ Backend dev: 100 THINK tokens
+├─ Frontend dev: 100 THINK tokens
+├─ Design: 50 THINK tokens
+├─ Testing: 30 THINK tokens
+└─ Project lead: 200 THINK tokens
+```
+
+### Get Verified
+```
+Top contributor for 3 months → Verified Badge
+├─ Lifetime Pro features
+├─ Higher earning multiplier
+├─ Featured profile
+└─ Speaking opportunities
+```
+
+---
+
+## 🆓 Free Forever (No Catch)
+
+### Free Tier Includes:
+- ✅ Submit to **local pools** (unlimited)
+- ✅ View **all problems** globally
+- ✅ Earn **tokens** for contributions
+- ✅ Participate in **hackathons**
+- ✅ Build **open-source projects**
+- ✅ Get **verified badge** (through contribution)
+- ✅ Access **all features** (no paywalls for core functions)
+
+### Unlock Global Pools:
+- Option 1: Pro tier ($9/month)
+- Option 2: **100+ quality contributions** (free forever)
+
+**Philosophy**: Those who contribute deserve full access.
+
+---
+
+## 🏗️ How It Works (Technical)
+
+### Problem Flow
+```
+1. AI scrapes trending topics
+   ├─ Twitter trending hashtags
+   ├─ News APIs (Al Jazeera, Reuters)
+   ├─ Reddit discussions
+   └─ Community submissions
+
+2. AI filters for quality
+   ├─ Is it beneficial? (not gossip)
+   ├─ Is it actionable? (solvable)
+   ├─ Is it ethical? (does more good than harm)
+   └─ Is it impactful? (affects many people)
+
+3. Posted to appropriate pool
+   ├─ Global (climate, AI ethics)
+   ├─ Regional (Africa water crisis)
+   ├─ Country (Nigeria power supply)
+   └─ Local (Lagos traffic)
+
+4. Community submits solutions
+   ├─ Judged by AI + experts
+   ├─ Scored on multiple metrics
+   ├─ Ranked by quality (not votes)
+   └─ Winner selected
+
+5. Implementation begins
+   ├─ Action plan created
+   ├─ Tasks assigned (with bounties)
+   ├─ Open-source collaboration
+   └─ Impact tracked on-chain
+```
+
+### Tech Stack
+- **Backend**: NestJS (TypeScript)
+- **Database**: PostgreSQL
+- **Blockchain**: Base (Coinbase L2)
+- **AI**: OpenAI GPT-4, Claude
+- **Frontend**: Next.js 14, TailwindCSS
+- **Auth**: JWT + Web3 wallets
+
+---
+
+## 🚀 Getting Started
+
+### For Contributors
+
+1. **Browse problems** in your area
+2. **Submit a solution** (start with local pools)
+3. **Win tokens** if your solution is best
+4. **Implement it** (get paid for code/work)
+5. **Build reputation** (verified badge, portfolio)
+
+### For Developers
+
+```bash
+# Clone the repo
+git clone https://github.com/ThinknetCollective/thinkmesh-api.git
+cd thinkmesh-api
+
+# Install dependencies
+npm install
+
+# Set up environment
+cp .env.example .env.development
+# Edit .env.development with your config
+
+# Start database
+docker-compose up -d
+
+# Run the app
+npm run start:dev
+
+# Visit API docs
+open http://localhost:3000/api/docs
+```
+
+### For Organizations
+
+Contact us at: partners@thinkmesh.io
+
+We offer:
+- White-label deployments
+- Custom problem pools
+- Impact reporting
+- Team features
+
+---
+
+## 📖 Documentation
+
+- **API Docs**: https://docs.thinkmesh.io
+- **Getting Started**: [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Architecture**: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- **Tokenomics**: [docs/TOKENOMICS.md](docs/TOKENOMICS.md)
+
+---
+
+## 🗺️ Roadmap
+
+### ✅ Phase 1: MVP (Weeks 1-4)
+- [x] Core problem/solution system
+- [x] User authentication
+- [x] Quality-based scoring
+- [ ] Problem pools (Global/Regional/Local)
+- [ ] Nigerian localization
+- [ ] Basic gamification
+
+### 🚧 Phase 2: Blockchain (Weeks 5-8)
+- [ ] THINK token on Base
+- [ ] NFT badge system
+- [ ] On-chain reputation
+- [ ] Wallet integration
+
+### 📋 Phase 3: Scale (Weeks 9-16)
+- [ ] Frontend web app
+- [ ] Mobile app
+- [ ] More countries (Kenya, Egypt, Indonesia)
+- [ ] Advanced AI features
+- [ ] Team/organization accounts
+
+### 🌟 Phase 4: Ecosystem (Months 5-12)
+- [ ] Partner integrations (GitHub, Slack)
+- [ ] Grant programs
+- [ ] Developer SDK
+- [ ] DAO governance
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- Code of conduct
+- Development setup
+- Pull request process
+- Coding standards
+
+**Quick ways to contribute:**
+- 🐛 Report bugs
+- 💡 Suggest features
+- 📝 Improve documentation
+- 🔧 Submit pull requests
+- 🌍 Translate to your language
+
+---
+
+## 🌟 Community
+
+- **Discord**: https://discord.gg/thinkmesh
+- **Twitter**: https://twitter.com/thinkmesh
+- **GitHub Discussions**: [Start a discussion](https://github.com/ThinknetCollective/thinkmesh-api/discussions)
+- **Blog**: https://blog.thinkmesh.io
+
+---
+
+## 💎 Backed By Our Values
+
+ThinkMesh is built on principles of:
+- **🤝 Collaboration** over competition
+- **✅ Quality** over quantity  
+- **🌍 Impact** over profit
+- **🔓 Openness** over secrecy
+- **⚖️ Fairness** over bias
+
+We believe good ideas can come from anywhere, and everyone deserves to be rewarded for making the world better.
+
+---
+
+## 📊 Impact So Far
+
+*(Will be updated post-launch)*
+
+- **Problems Posted**: Coming soon
+- **Solutions Implemented**: Coming soon
+- **People Helped**: Coming soon
+- **Tokens Distributed**: Coming soon
+- **Countries Active**: Coming soon
+
+---
+
+## 🔐 Security
+
+- All smart contracts audited (coming soon)
+- Bug bounty program (coming soon)
+- Responsible disclosure: security@thinkmesh.io
+- See [SECURITY.md](SECURITY.md) for details
+
+---
+
+## 📜 License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+Open source, forever.
+
+---
+
+## 🙏 Acknowledgments
+
+Built with:
+- [NestJS](https://nestjs.com/) - Backend framework
+- [Base](https://base.org/) - Blockchain network
+- [OpenAI](https://openai.com/) - AI capabilities
+- [PostgreSQL](https://www.postgresql.org/) - Database
+
+Inspired by:
+- Gitcoin (crypto bounties)
+- Stack Overflow (quality Q&A)
+- Y Combinator (helping makers)
+- The open-source community
+
+---
+
+## 💬 Questions?
+
+- **General**: hello@thinkmesh.io
+- **Technical**: dev@thinkmesh.io
+- **Partnerships**: partners@thinkmesh.io
+- **Press**: press@thinkmesh.io
+
+---
+
+<div align="center">
+
+**🚀 Solve problems. Earn crypto. Make impact. 🌍**
+
+[Get Started](https://thinkmesh.io) • [Documentation](https://docs.thinkmesh.io) • [Discord](https://discord.gg/thinkmesh)
+
+Made with ❤️ by problem solvers, for problem solvers
+
+---
+
+⭐ **Star this repo** if you believe in solving real problems!
+
+</div>

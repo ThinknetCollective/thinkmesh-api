@@ -2,7 +2,7 @@ import { Controller, Post, Get, Body, Param, HttpException, HttpStatus } from '@
 import { SummarizationService } from '../services/summarization.service';
 import { CreateSummaryDto } from '../dto/create-summary.dto';
 
-@Controller('mesh-nodes/summaries')
+@Controller('api/v1/mesh-nodes/summaries')
 export class SummarizationController {
   constructor(private readonly summarizationService: SummarizationService) {}
 

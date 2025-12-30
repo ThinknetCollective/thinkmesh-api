@@ -12,6 +12,8 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
+      disableErrorMessages: process.env.NODE_ENV === 'production',
+      stopAtFirstError: true,
     }),
   );
 
@@ -19,8 +21,11 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   // Enable CORS
-  app.enableCors();
-
+  app.enableCors({
+    origin: process.env.CORS_ORIGINS?.split(',') || 'http://localhost:3000',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  });
   // Swagger API documentation setup
   const config = new DocumentBuilder()
     .setTitle('ThinkMesh API')

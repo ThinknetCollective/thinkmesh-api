@@ -17,7 +17,7 @@ import { VoteSolutionDto } from './dto/vote-solution.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 
-@ApiTags('solutions')
+@ApiTags('api/v1/solutions')
 @ApiBearerAuth() // adds JWT auth field in Swagger
 @Controller('solutions')
 @UseGuards(JwtAuthGuard)

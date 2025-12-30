@@ -24,7 +24,7 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 
-@ApiTags('tags') // Groups all endpoints in Swagger
+@ApiTags('api/v1/tags') // Groups all endpoints in Swagger
 @Controller('tags')
 export class TagsController {
   constructor(private readonly tagsService: TagsService) {}

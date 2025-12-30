@@ -1,7 +1,8 @@
-# compiled output
+# Compiled output
 /dist
 /node_modules
 /build
+*.js.map
 
 # Logs
 logs
@@ -14,6 +15,7 @@ lerna-debug.log*
 
 # OS
 .DS_Store
+Thumbs.db
 
 # Tests
 /coverage
@@ -35,22 +37,21 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# dotenv environment variable files
+# Environment variables
 .env
-<<<<<<< HEAD
-=======
-.env.development
-.env.production
-.env.test
->>>>>>> upstream/main
-.env.development.local
-.env.test.local
-.env.production.local
 .env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
 
-# temp directory
+# Temporary directories
 .temp
 .tmp
+temp/
+tmp/
 
 # Runtime data
 pids
@@ -58,32 +59,132 @@ pids
 *.seed
 *.pid.lock
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
+# Diagnostic reports
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
-<<<<<<< HEAD
-=======
+
+# Dependency directories
 node_modules/
-*.log
-.env
-# Build outputs
-dist/
+jspm_packages/
+
+# TypeScript cache
 *.tsbuildinfo
 
-# Dependencies
-node_modules/
+# Optional npm cache directory
+.npm
 
-# Environment files
-.env
-.env.local
+# Optional eslint cache
+.eslintcache
 
-# Logs
-*.log
-npm-debug.log*
+# Optional REPL history
+.node_repl_history
 
-# Large installers
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# Next.js build output (for future frontend)
+.next
+out
+
+# Nuxt.js build / generate output (if used)
+.nuxt
+dist
+
+# Gatsby files (if used)
+.cache/
+
+# vuepress build output (if used)
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker volumes
+postgres_data/
+
+# Large installers (for Windows setup)
 *.exe
+*.msi
 
-# OS generated files
-.DS_Store
+# Production build artifacts
+dist-prod/
+build-prod/
+
+# Database migrations (if you want to ignore them)
+# migrations/*.ts
+# !migrations/.gitkeep
+
+# Test artifacts
+test-results/
+playwright-report/
+
+# Security files
+*.pem
+*.key
+*.cert
+
+# Backup files
+*.backup
+*.bak
+*.swp
+*.swo
+*~
+
+# IDE specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Mac specific
+.AppleDouble
+.LSOverride
+Icon
+
+# Windows specific
 Thumbs.db
->>>>>>> upstream/main
+ehthumbs.db
+Desktop.ini
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Documentation builds
+docs/.vitepress/cache
+docs/.vitepress/dist
+
+# Local development files
+local/
+scratch/
+playground/

@@ -15,12 +15,9 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
-  password: string;
-
   @Exclude()
-@Column({ name: 'password_hash', type: 'varchar', length: 255 })
-passwordHash: string;
+  @Column({ name: 'password_hash', type: 'varchar', length: 255 })
+  passwordHash: string;
 
   @CreateDateColumn()
   createdAt: Date;
