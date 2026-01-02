@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
 import { SolutionsModule } from './solutions/solutions.module';
 import { TagsModule } from './tags/tags.module';
 import { HealthModule } from './health/health.module';
+import { MetricsModule } from './metrics/metrics.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { HealthModule } from './health/health.module';
     SolutionsModule,
     TagsModule,
     HealthModule,
+    MetricsModule,
   ],
 
   // ✅ Apply throttling globally

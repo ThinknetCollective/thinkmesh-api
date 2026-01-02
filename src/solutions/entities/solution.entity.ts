@@ -6,9 +6,11 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { MeshNode } from '../../mesh-nodes/entities/mesh-node.entity';
+import { IslamicMetrics } from '../../metrics/entities/islamic-metrics.entity';
 
 @Entity('solutions')
 export class Solution {
@@ -42,4 +44,17 @@ export class Solution {
   })
   @JoinColumn({ name: 'mesh_node_id' })
   meshNode: MeshNode;
+
+  @OneToOne(() => IslamicMetrics, (metrics) => metrics.solution, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn()
+  islamicMetrics: IslamicMetrics;
+
+  @Column({ type: 'decimal', precision: 5, scale: 2, default: 0 })
+  totalScore: number; // Will be calculated from Islamic metrics
+
+  @Column({ default: 1 })
+  rank: number; // Position in ranking
 }
