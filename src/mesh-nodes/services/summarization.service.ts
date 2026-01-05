@@ -55,9 +55,8 @@ export class SummarizationService {
       );
 
       const data = await response.json();
-      return (
-        data.choices[0]?.message?.content || this.fallbackSummarization(texts)
-      );
+      const content = String(data.choices?.[0]?.message?.content || '');
+      return content;
     } catch (error) {
       this.logger.error('OpenAI summarization failed:', error);
       return this.fallbackSummarization(texts);
@@ -104,9 +103,9 @@ export class SummarizationService {
           node.solutions.length > 0
         ) {
           // If solutions are entities, extract their content/text property
-          const solutionTexts = node.solutions.map(
-            (s: any) => s.content || s.text || s.toString(),
-          );
+          const solutionTexts = node.solutions
+            .map((s: any) => String(s.content || s.text || ''))
+            .filter(Boolean);
           if (solutionTexts.length > 0) {
             await this.createSummaryForNode(node.id, solutionTexts);
             this.logger.log(`Updated summary for node ${node.id}`);

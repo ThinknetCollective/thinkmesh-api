@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { IslamicMetrics } from './entities/islamic-metrics.entity';
 import { CreateMetricsDto } from './dto/create-metrics.dto';
+import { ruleBasedScore } from './scoring/scoring.engine';
 
 interface OpenAIResponse {
   choices: Array<{
@@ -114,7 +115,7 @@ Return ONLY valid JSON (no markdown, no explanation):
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'gpt-3.5-turbo',
         messages: [
           {
             role: 'system',
@@ -127,6 +128,11 @@ Return ONLY valid JSON (no markdown, no explanation):
         max_tokens: 500,
       }),
     });
+    // No response status check
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`OpenAI error ${response.status}: ${errorText}`);
+    }
     const data = (await response.json()) as OpenAIResponse;
     const content: string = data.choices[0]?.message?.content || '{}';
 
@@ -136,7 +142,14 @@ Return ONLY valid JSON (no markdown, no explanation):
       .replace(/```/g, '')
       .trim();
 
-    const metrics = JSON.parse(cleanContent) as MetricsResponse;
+    let metrics: MetricsResponse;
+
+    try {
+      metrics = JSON.parse(cleanContent) as MetricsResponse;
+    } catch {
+      this.logger.error('Failed to parse AI JSON:', cleanContent);
+      throw new Error('Invalid AI JSON response');
+    }
 
     return {
       maslaha: Math.min(25, Math.max(0, metrics.maslaha ?? 0)),
@@ -153,84 +166,12 @@ Return ONLY valid JSON (no markdown, no explanation):
   /**
    * Fallback scoring when AI is unavailable
    */
+
   private fallbackScoring(
     solutionText: string,
     problemContext: string,
   ): CreateMetricsDto {
-    const text = `${solutionText} ${problemContext}`.toLowerCase();
-
-    // Simple keyword-based scoring
-    let maslaha = 10;
-    let adalah = 10;
-    let ihsan = 10;
-    let amanah = 10;
-    let dhararPrevention = 0;
-
-    // Positive keywords for each metric
-    const benefitWords = [
-      'help',
-      'benefit',
-      'improve',
-      'support',
-      'assist',
-      'people',
-    ];
-    const justiceWords = ['fair', 'equal', 'justice', 'equitable', 'inclusive'];
-    const excellenceWords = [
-      'innovative',
-      'excellent',
-      'quality',
-      'best',
-      'optimize',
-    ];
-    const trustWords = [
-      'transparent',
-      'honest',
-      'reliable',
-      'proven',
-      'tested',
-    ];
-    const harmWords = [
-      'risk',
-      'danger',
-      'harm',
-      'damage',
-      'negative',
-      'problem',
-    ];
-
-    // Count keyword matches
-    benefitWords.forEach((word) => {
-      if (text.includes(word)) maslaha += 3;
-    });
-    justiceWords.forEach((word) => {
-      if (text.includes(word)) adalah += 3;
-    });
-    excellenceWords.forEach((word) => {
-      if (text.includes(word)) ihsan += 3;
-    });
-    trustWords.forEach((word) => {
-      if (text.includes(word)) amanah += 3;
-    });
-    harmWords.forEach((word) => {
-      if (text.includes(word)) dhararPrevention -= 5;
-    });
-
-    // Cap values
-    maslaha = Math.min(25, maslaha);
-    adalah = Math.min(25, adalah);
-    ihsan = Math.min(25, ihsan);
-    amanah = Math.min(25, amanah);
-    dhararPrevention = Math.max(-50, dhararPrevention);
-
-    return {
-      maslaha,
-      adalah,
-      ihsan,
-      amanah,
-      dhararPrevention,
-      aiExplanation: 'Scored using fallback keyword-based algorithm',
-    };
+    return ruleBasedScore(solutionText, problemContext);
   }
 
   /**

@@ -1,7 +1,8 @@
 # ThinkMesh 🧠
 
-**Solve real problems. Earn crypto. Make impact.**
+**Solve real problems. Get rewarded. Create measurable impact.**
 
+## TL;DR
 ThinkMesh is a decentralized platform where communities collaborate to solve real-world problems—from local infrastructure to global challenges—and get rewarded for their contributions.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -117,11 +118,7 @@ We're starting with **Nigeria** to prove the model:
 
 ### Win Challenges
 ```
-Weekly Problem: "Reduce Lagos Traffic by 20%"
-├─ 1st place: 500 THINK tokens (~$100)
-├─ 2nd place: 300 THINK tokens (~$60)
-├─ 3rd place: 200 THINK tokens (~$40)
-└─ All participants: Contribution tokens
+🏆 Contributors are rewarded with on-chain tokens, reputation, and verified impact credentials.
 ```
 
 ### Implement Solutions
@@ -390,7 +387,7 @@ Inspired by:
 
 <div align="center">
 
-**🚀 Solve problems. Earn crypto. Make impact. 🌍**
+**🚀 Solve real problems. Get rewarded. Create measurable impact.🌍**
 
 [Get Started](https://thinkmesh.io) • [Documentation](https://docs.thinkmesh.io) • [Discord](https://discord.gg/thinkmesh)
 
