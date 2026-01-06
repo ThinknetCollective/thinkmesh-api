@@ -1,0 +1,42 @@
+@baseUrl = http://localhost:3000
+@token = YOUR_TOKEN_HERE
+@nodeId = YOUR_NODE_ID
+
+### Test 1: Empty Solution (Should Fail Validation)
+POST {{baseUrl}}/solutions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "content": "",
+  "meshNodeId": {{nodeId}}
+}
+
+### Test 2: Very Long Solution (>1000 chars)
+POST {{baseUrl}}/solutions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "content": "benefit benefit benefit benefit benefit... (repeat 200 times)",
+  "meshNodeId": {{nodeId}}
+}
+
+### Test 3: Keyword Stuffing (Should Get Low Score)
+POST {{baseUrl}}/solutions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "content": "benefit community fair justice transparent benefit benefit fair equal community benefit transparent",
+  "meshNodeId": {{nodeId}}
+}
+
+### Test 4: Solution Without OpenAI Key (Should Use Fallback)
+POST {{baseUrl}}/api/v1/metrics/calculate
+Content-Type: application/json
+
+{
+  "solutionText": "Build solar panels to help communities access clean energy",
+  "problemContext": "Energy shortage"
+}

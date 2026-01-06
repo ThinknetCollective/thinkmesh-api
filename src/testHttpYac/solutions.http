@@ -1,0 +1,90 @@
+### Variables
+@baseUrl = http://localhost:3000
+@token = YOUR_JWT_TOKEN_HERE
+
+### 1. Register User
+POST {{baseUrl}}/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### 2. Login (Save the token!)
+# @name login
+POST {{baseUrl}}/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Extract token from login response
+@token = {{login.response.body.$.access_token}}
+
+### 3. Create Mesh Node
+# @name createNode
+POST {{baseUrl}}/api/v1/mesh-nodes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Lagos Traffic Congestion",
+  "description": "How can we reduce traffic in Lagos? 2-hour commutes are killing productivity.",
+  "category": "Infrastructure",
+  "tags": ["nigeria", "lagos", "traffic", "infrastructure"]
+}
+
+### Extract mesh node ID
+@nodeId = {{createNode.response.body.$.id}}
+
+### 4. Submit Solution (High Quality)
+# @name solution1
+POST {{baseUrl}}/solutions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "content": "Build dedicated bus lanes on major routes. This will benefit thousands of commuters daily, provide equal access to public transport, and reduce carbon emissions. Implementation requires collaboration with Lagos State government and LAMATA. Transparent progress tracking via public dashboard. Estimated cost: ₦500M, timeline: 18 months.",
+  "meshNodeId": {{nodeId}}
+}
+
+### 5. Submit Solution (Medium Quality)
+POST {{baseUrl}}/solutions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "content": "Maybe we could try carpooling or something? Not sure how to implement it but could help a bit.",
+  "meshNodeId": {{nodeId}}
+}
+
+### 6. Submit Solution (Low Quality - Spam)
+POST {{baseUrl}}/solutions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "content": "Just buy more cars! Everyone should drive! #traffic #lagos #cars",
+  "meshNodeId": {{nodeId}}
+}
+
+### 7. Get All Solutions for Node (Check Rankings!)
+GET {{baseUrl}}/solutions/mesh-node/{{nodeId}}
+Authorization: Bearer {{token}}
+
+### 8. Get Specific Solution with Metrics
+GET {{baseUrl}}/solutions/{{solution1.response.body.$.id}}
+Authorization: Bearer {{token}}
+
+### 9. Test Metrics Endpoint Directly
+POST {{baseUrl}}/api/v1/metrics/calculate
+Content-Type: application/json
+
+{
+  "solutionText": "This solution will help the entire community by providing fair and transparent access to clean water for over 5000 families.",
+  "problemContext": "Water shortage in rural areas"
+}

@@ -28,8 +28,16 @@ export function ruleBasedScore(
     ihsan = Math.min(ihsan, ANTI_GAMING.SHORT_TEXT_IHSAN_CAP);
   }
 
-  if (!KEYWORDS.harm.some((w) => text.includes(w))) {
-    dhararPrevention += ANTI_GAMING.NO_RISK_PENALTY;
+  // Only penalize if solution is risky but doesn't acknowledge it
+  if (
+    text.includes('force') ||
+    text.includes('mandatory') ||
+    text.includes('ban')
+  ) {
+    // Authoritarian solution without mentioning harm
+    if (!KEYWORDS.harm.some((w) => text.includes(w))) {
+      dhararPrevention -= 15; // Now it makes sense
+    }
   }
 
   // 🔐 Hard caps

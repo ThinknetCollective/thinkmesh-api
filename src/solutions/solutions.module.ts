@@ -1,3 +1,4 @@
+import { MetricsModule } from './../metrics/metrics.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SolutionsService } from './solutions.service';
@@ -7,7 +8,10 @@ import { MeshNode } from '../mesh-nodes/entities/mesh-node.entity';
 import { User } from '../users/entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Solution, MeshNode, User])],
+  imports: [
+    TypeOrmModule.forFeature([Solution, MeshNode, User]),
+    MetricsModule,
+  ],
   controllers: [SolutionsController],
   providers: [SolutionsService],
   exports: [SolutionsService],

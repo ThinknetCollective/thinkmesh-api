@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -11,9 +12,11 @@ import { User } from '../users/entities/user.entity';
 import { CreateSolutionDto } from './dto/create-solution.dto';
 import { UpdateSolutionDto } from './dto/update-solution.dto';
 import { VoteSolutionDto, VoteType } from './dto/vote-solution.dto';
+import { MetricsService } from '../metrics/metrics.service';
 
 @Injectable()
 export class SolutionsService {
+  private readonly logger = new Logger(SolutionsService.name);
   constructor(
     @InjectRepository(Solution)
     private solutionsRepository: Repository<Solution>,
@@ -21,6 +24,7 @@ export class SolutionsService {
     private meshNodesRepository: Repository<MeshNode>,
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    private metricsService: MetricsService,
   ) {}
 
   async create(
@@ -47,13 +51,74 @@ export class SolutionsService {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
 
+    // 🌙 NEW: Calculate Islamic metrics
+    this.logger.log('Calculating Islamic metrics for solution...');
+
+    const metricsDto = await this.metricsService.calculateMetrics(
+      createSolutionDto.content,
+      `${meshNode.title}: ${meshNode.description}`,
+    );
+
+    // Create Islamic metrics entity
+    const islamicMetrics = await this.metricsService.create(metricsDto);
+
+    // Calculate total score
+    const totalScore = this.metricsService.calculateOverallScore(metricsDto);
+
+    // Create solution with metrics
     const solution = this.solutionsRepository.create({
       content: createSolutionDto.content,
       meshNode,
       submittedBy: user,
+      islamicMetrics, // 🌙 Attach metrics
+      totalScore, // 🌙 Attach score
     });
 
-    return this.solutionsRepository.save(solution);
+    const savedSolution = await this.solutionsRepository.save(solution);
+
+    // 🏆 NEW: Update rankings for this mesh node
+    await this.updateRankings(meshNode.id);
+
+    this.logger.log(`Solution scored: ${totalScore}/100`);
+
+    return savedSolution;
+  }
+
+  // 🏆 NEW: Update rankings based on total score
+  private async updateRankings(meshNodeId: number): Promise<void> {
+    const solutions = await this.solutionsRepository.find({
+      where: { meshNode: { id: meshNodeId } },
+      order: { totalScore: 'DESC' }, // Highest score first
+    });
+
+    // Update rank for each solution
+    for (let i = 0; i < solutions.length; i++) {
+      solutions[i].rank = i + 1; // 1 = best, 2 = second, etc.
+    }
+
+    await this.solutionsRepository.save(solutions);
+  }
+
+  async findByMeshNode(meshNodeId: number): Promise<Solution[]> {
+    // Verify mesh node exists
+    const meshNode = await this.meshNodesRepository.findOne({
+      where: { id: meshNodeId },
+    });
+
+    if (!meshNode) {
+      throw new NotFoundException(`MeshNode with ID ${meshNodeId} not found`);
+    }
+
+    // 🏆 NEW: Order by totalScore (not just votes)
+    return this.solutionsRepository.find({
+      where: { meshNode: { id: meshNodeId } },
+      relations: ['submittedBy', 'islamicMetrics'], // 🌙 Include metrics
+      order: {
+        totalScore: 'DESC', // 🌙 Primary: Islamic score
+        totalVotes: 'DESC', // Secondary: Community votes
+        createdAt: 'DESC', // Tertiary: Newest
+      },
+    });
   }
 
   async findAll(): Promise<Solution[]> {
@@ -74,23 +139,6 @@ export class SolutionsService {
     }
 
     return solution;
-  }
-
-  async findByMeshNode(meshNodeId: number): Promise<Solution[]> {
-    // Verify mesh node exists
-    const meshNode = await this.meshNodesRepository.findOne({
-      where: { id: meshNodeId },
-    });
-
-    if (!meshNode) {
-      throw new NotFoundException(`MeshNode with ID ${meshNodeId} not found`);
-    }
-
-    return this.solutionsRepository.find({
-      where: { meshNode: { id: meshNodeId } },
-      relations: ['submittedBy'],
-      order: { totalVotes: 'DESC', createdAt: 'DESC' },
-    });
   }
 
   async update(
