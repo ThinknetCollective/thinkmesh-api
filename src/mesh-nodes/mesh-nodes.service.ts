@@ -148,6 +148,42 @@ export class MeshNodesService {
     return query.getMany();
   }
 
+  async findTrending(limit: number = 20): Promise<any[]> {
+    const results = await this.meshNodesRepository
+      .createQueryBuilder('meshNode')
+      .leftJoin('meshNode.solutions', 'solution')
+      .leftJoinAndSelect('meshNode.createdBy', 'createdBy')
+      .addSelect('COUNT(solution.id)::int', 'solutionCount')
+      .addSelect('COALESCE(SUM(solution.upvotes), 0)::int', 'totalUpvotes')
+      .addSelect(
+        `(COUNT(solution.id) * 3 + COALESCE(SUM(solution.upvotes), 0) * 2)
+         + (10.0 / (1.0 + EXTRACT(EPOCH FROM (NOW() - meshNode.createdAt)) / 86400.0))`,
+        'trendingScore',
+      )
+      .where('meshNode.status = :status', { status: 'ACTIVE' })
+      .groupBy('meshNode.id')
+      .addGroupBy('createdBy.id')
+      .orderBy('trendingScore', 'DESC')
+      .limit(limit)
+      .getRawAndEntities();
+
+    const scoreMap = new Map<number, any>();
+    for (const raw of results.raw) {
+      scoreMap.set(raw.meshNode_id, {
+        trendingScore: parseFloat(raw.trendingScore),
+        solutionCount: raw.solutionCount,
+        totalUpvotes: raw.totalUpvotes,
+      });
+    }
+
+    return results.entities.map((entity) => ({
+      ...entity,
+      trendingScore: scoreMap.get(entity.id)?.trendingScore || 0,
+      solutionCount: scoreMap.get(entity.id)?.solutionCount || 0,
+      totalUpvotes: scoreMap.get(entity.id)?.totalUpvotes || 0,
+    }));
+  }
+
   async suggestTagsForMeshNode(
     title: string,
     description: string,
