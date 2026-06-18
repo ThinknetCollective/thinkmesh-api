@@ -69,6 +69,15 @@ export class MeshNodesController {
     return this.meshNodesService.findAll();
   }
 
+  @Get('trending')
+  @ApiOperation({
+    summary: 'Get trending mesh nodes ranked by engagement score',
+  })
+  @ApiResponse({ status: 200, description: 'Trending mesh nodes returned' })
+  findTrending(@Query('limit') limit?: number) {
+    return this.meshNodesService.findTrending(limit ? +limit : undefined);
+  }
+
   @Post('suggest-tags')
   @ApiOperation({ summary: 'Suggest tags based on title and description' })
   @ApiResponse({ status: 200, description: 'Suggested tags returned' })
