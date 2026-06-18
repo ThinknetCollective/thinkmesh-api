@@ -70,7 +70,9 @@ export class MeshNodesController {
   }
 
   @Get('trending')
-  @ApiOperation({ summary: 'Get trending mesh nodes ranked by engagement score' })
+  @ApiOperation({
+    summary: 'Get trending mesh nodes ranked by engagement score',
+  })
   @ApiResponse({ status: 200, description: 'Trending mesh nodes returned' })
   findTrending(@Query('limit') limit?: number) {
     return this.meshNodesService.findTrending(limit ? +limit : undefined);
